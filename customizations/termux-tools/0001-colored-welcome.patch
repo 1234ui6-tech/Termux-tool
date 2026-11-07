@@ -1,0 +1,53 @@
+diff --git a/motds/motd.sh.in b/motds/motd.sh.in
+index 1a76844..8a4f2f9 100644
+--- a/motds/motd.sh.in
++++ b/motds/motd.sh.in
+@@ -7,7 +7,7 @@ terminal_width="$(stty size | cut -d" " -f2)"
+ if [[ "$terminal_width" =~ ^[0-9]+$ ]] && [ "$terminal_width" -gt 60 ]; then
+ 
+     motd="
+- \e[47m                \e[0m  \e[1mWelcome to Termux!\e[0m
++ \e[47m                \e[0m  \e[1mWelcome to Termux:tool!\e[0m
+  \e[47m  \e[0m            \e[0;37m\e[47m .\e[0m
+  \e[47m  \e[0m  \e[47m  \e[0m        \e[47m  \e[0m  \e[1mDocs:\e[0m      \e[4mhttps://termux.dev/docs\e[0m
+  \e[47m  \e[0m  \e[47m  \e[0m        \e[47m  \e[0m  \e[1mDonate:\e[0m    \e[4mhttps://termux.dev/donate\e[0m
+@@ -18,10 +18,11 @@ if [[ "$terminal_width" =~ ^[0-9]+$ ]] && [ "$terminal_width" -gt 60 ]; then
+ 
+     motd_indent="                   "
+ 
++
+ else
+ 
+     motd="
+-\e[1mWelcome to Termux!\e[0m
++\e[1mWelcome to Termux:tool!\e[0m
+ 
+ \e[1mDocs:\e[0m      \e[4mhttps://termux.dev/docs\e[0m
+ \e[1mDonate:\e[0m    \e[4mhttps://termux.dev/donate\e[0m
+@@ -30,7 +31,9 @@ else
+ \e[1mTermux version:\e[0m ${TERMUX_VERSION-Unknown}
+ "
+ 
++
+     motd_indent=""
++
+ fi
+ 
+ motd+="
+@@ -54,6 +57,16 @@ ${motd_indent}try 'termux-change-repo' command.
+ 
+ fi
+ 
++motd+="
++${motd_indent}Other:
++${motd_indent} - Install Python: pkg install python
++${motd_indent} - Author: Dumbledore
++${motd_indent} - Partner: ChatGPT
++${motd_indent} - \033[1;31m中\033[1;33m国\033[1;32m人\033[1;36m能\033[1;34m飞\033[0m
++${motd_indent} - Friend: Lu Yuanqi
++${motd_indent} - Friend: Qin Xuanming
++"
++
+ motd+="
+ ${motd_indent}Report issues at \e[4mhttps://termux.dev/issues\e[0m
+ "

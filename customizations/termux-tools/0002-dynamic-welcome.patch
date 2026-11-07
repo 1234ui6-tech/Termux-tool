@@ -1,0 +1,13 @@
+--- a/scripts/login.in
++++ b/scripts/login.in
+@@ -6,6 +6,10 @@
+ 		[ ! -x ~/.termux/motd.sh ] && chmod u+x ~/.termux/motd.sh
+ 		~/.termux/motd.sh
+ 	# Default to termux-tools package provided static motd file if it exists
++	# Prefer customized dynamic motd file
++	elif [ -f "@TERMUX_PREFIX@/etc/motd.sh" ]; then
++	    bash "@TERMUX_PREFIX@/etc/motd.sh"
++	# Fall back to static motd file
+ 	elif [ -f @TERMUX_PREFIX@/etc/motd ]; then
+ 		cat @TERMUX_PREFIX@/etc/motd
+ 	fi

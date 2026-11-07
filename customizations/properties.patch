@@ -1,0 +1,31 @@
+diff --git a/scripts/properties.sh b/scripts/properties.sh
+index 18e32d9cb3..e620de84bd 100644
+--- a/scripts/properties.sh
++++ b/scripts/properties.sh
+@@ -214,7 +214,7 @@ fi
+ #
+ # Default value: `Termux`
+ ##
+-TERMUX__NAME="Termux"
++TERMUX__NAME="Termux:tool"
+ 
+ ##
+ # The lower case value for `TERMUX__NAME`.
+@@ -306,7 +306,7 @@ TERMUX__REPOS_HOST_ORG_URL="https://github.com/$TERMUX__REPOS_HOST_ORG_NAME"
+ #
+ # Default value: `com.termux`
+ ##
+-TERMUX_APP__PACKAGE_NAME="com.termux"
++TERMUX_APP__PACKAGE_NAME="com.termuxtool.app"
+ TERMUX_APP_PACKAGE="$TERMUX_APP__PACKAGE_NAME" # Deprecated alternative variable for `TERMUX_APP__PACKAGE_NAME`
+ 
+ __termux_build_props__add_variables_validator_actions "TERMUX_APP__PACKAGE_NAME" "app_package_name"
+@@ -1472,7 +1472,7 @@ TERMUX_APP__LNAME="${TERMUX_APP__NAME,,}"
+ # Validation regex: `TERMUX__APPS_APP_IDENTIFIER_REGEX`
+ # Max length: `TERMUX__APPS_APP_IDENTIFIER___MAX_LEN`
+ ##
+-TERMUX_APP__IDENTIFIER="termux"
++TERMUX_APP__IDENTIFIER="termuxtool"
+ 
+ 
+ 
