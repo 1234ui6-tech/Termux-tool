@@ -40,6 +40,7 @@ jobs:
 
           git apply ../customizations/properties.patch
           git apply ../customizations/0001-money-prompt.patch
+          git apply ../customizations/0002-fix-bootstrap-cleanup.patch
 
           cp ../customizations/termux-tools/*.patch \
             packages/termux-tools/

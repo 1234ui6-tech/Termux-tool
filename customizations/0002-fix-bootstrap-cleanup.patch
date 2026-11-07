@@ -1,0 +1,36 @@
+From 8b86f341aefc2e9d2677a1c24cdbd8a065f777f9 Mon Sep 17 00:00:00 2001
+From: 1234ui6-tech <1234ui6@gmail.com>
+Date: Sun, 8 Nov 2026 00:21:58 +0800
+Subject: [PATCH] Fix bootstrap package cleanup directory
+
+---
+ scripts/build-bootstraps.sh | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/scripts/build-bootstraps.sh b/scripts/build-bootstraps.sh
+index 321c135339..a6c1111fd8 100755
+--- a/scripts/build-bootstraps.sh
++++ b/scripts/build-bootstraps.sh
+@@ -393,8 +393,19 @@ main() {
+ 	for TERMUX_ARCH in "${TERMUX_ARCHITECTURES[@]}"; do
+ 		termux_step_handle_buildarch
+ 
++		TERMUX_BUILT_PACKAGES_DIRECTORY_FOR_ARCH="${TERMUX_BUILT_PACKAGES_DIRECTORY}/${TERMUX_ARCH}"
++
+ 		if [[ $FORCE_BUILD_PACKAGES == "1" ]]; then
++			if [[ -z "$TERMUX_BUILT_PACKAGES_DIRECTORY_FOR_ARCH" || "$TERMUX_BUILT_PACKAGES_DIRECTORY_FOR_ARCH" == "/" ]]; then
++				echo "Unsafe built-packages directory; aborting." >&2
++				return 1
++			fi
++			mkdir -p "$TERMUX_BUILT_PACKAGES_DIRECTORY_FOR_ARCH"
+ 			rm -f "$TERMUX_BUILT_PACKAGES_DIRECTORY_FOR_ARCH"/*
++			if [[ "$TERMUX_BUILT_PACKAGES_DIRECTORY_FOR_ARCH" != "/data/data/.built-packages/"* || "$TERMUX_BUILT_DEBS_DIRECTORY" != "/home/builder/termux-packages/output" ]]; then
++			    echo "Unsafe cleanup path; aborting." >&2
++			    return 1
++			fi
+ 			rm -f "$TERMUX_BUILT_DEBS_DIRECTORY"/*
+ 		fi
+ 
+-- 
+2.56.0
+
