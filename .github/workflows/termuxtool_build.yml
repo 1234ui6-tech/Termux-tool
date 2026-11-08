@@ -42,6 +42,20 @@ jobs:
           git apply ../customizations/0001-money-prompt.patch
           git apply ../customizations/0002-fix-bootstrap-cleanup.patch
 
+          python3 - <<'PATCH'
+          from pathlib import Path
+          p = Path("x11-packages/foot/build.sh")
+          s = p.read_text()
+          old = "TERMUX_PKG_SRCURL=https://codeberg.org/dnkl/foot/archive/${TERMUX_PKG_VERSION}.tar.gz"
+          new = "TERMUX_PKG_SRCURL=git+https://codeberg.org/dnkl/foot.git\nTERMUX_PKG_GIT_BRANCH=${TERMUX_PKG_VERSION}"
+          if old not in s:
+              raise SystemExit("找不到 foot 原始源码地址，停止修改")
+          s = s.replace(old, new, 1)
+          s = s.replace("TERMUX_PKG_SHA256=b93b196a3fbab86678c54be627557bdc7b1fc8042d99b14c4a74b149f60bcd52\n", "", 1)
+          p.write_text(s)
+          print("foot 已改为从固定版本标签获取源码")
+          PATCH
+
           cp ../customizations/termux-tools/*.patch \
             packages/termux-tools/
 
