@@ -55,8 +55,7 @@ jobs:
           cd termux-packages
 
           ./scripts/run-docker.sh \
-            ./scripts/build-bootstraps.sh \
-            --architectures aarch64 -f
+            bash -c './scripts/setup-android-sdk.sh && ./scripts/build-bootstraps.sh --architectures aarch64 -f'
 
           test -s bootstrap-aarch64.zip
 
